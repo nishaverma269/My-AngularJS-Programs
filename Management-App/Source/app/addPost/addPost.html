@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Add Post Page</title>
+</head>
+
+<body ng-controller="AddPostCtrl">
+    <div id="wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand"> <a href="#">
+                        Management App
+                    </a> </li>
+            <li> <a href="#/welcome">Dashboard</a> </li>
+            <li> <a href="#/contractorAdmin">Harwdware Inventory</a> </li>
+            <li> <a href="#/addPost">Software Inventory</a> </li>
+            <li> <a href="#">Settings</a> </li>
+            <li ng-click="logout()"> <a href="#">Logout</a> </li>
+        </ul>
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <nav class="navbar navbar-inverse navbar-fixed-top">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#/addHardwareInventory">Add Hardware Inventory</a></li>
+                        <li><a href="#/showContractors">Hardware Inventory Details</a></li>
+                        <li><a href="#/addPost">Hardware Inventory Summary</a></li>
+                        <li ng-click="logout()"><a href="#">Reports</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <div>
+        <div class="row">
+            <div class="col-md-8">
+                <li><a href="#/addPost">Add Software</a></li>
+                <li><a href="#/addPost">Show Softwares</a></li>
+                <li><a href="#/reports">Report</a></li>
+                <li><a href="#/adminSettings">Settings</a></li>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

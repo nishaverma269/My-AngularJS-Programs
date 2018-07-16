@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Add Hardware Inventory</title>
+</head>
+
+<body ng-controller="AddHardwareInventoryCtrl">
+    <div id="wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand"> <a href="#">
+                        Management App
+                    </a> </li>
+            <li> <a href="#">Dashboard</a> </li>
+            <li> <a href="#/contractorAdmin">Harwdware Inventory</a> </li>
+            <li> <a href="#/addPost">Software Inventory</a> </li>
+            <li> <a href="#">Settings</a> </li>
+            <li ng-click="logout()"> <a href="#">Logout</a> </li>
+        </ul>
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <nav class="navbar navbar-inverse navbar-fixed-top">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#/addHardwareInventory">Add Hardware Inventory</a></li>
+                        <li><a href="#/showContractors">Hardware Inventory Details</a></li>
+                        <li><a href="#/addPost">Hardware Inventory Summary</a></li>
+                        <li ng-click="logout()"><a href="#">Reports</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <div class="container" ng-show="success">
+        <div class="row">
+            <div class="alert alert-success"> <strong>Success!</strong> The Inventory has beed added. </div>
+        </div>
+    </div>
+    <div class="container">
+        <form role="form" name="hardwareform" ng-submit="addHardwareInventory()">
+            <legend>Add Hardware Inventory</legend>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group" ng-class="{'has-error': hardwareform.propertyTag.$invalid && hardwareform.propertyTag.$touched}">
+                        <label for="propertyTag">Property Tag</label>
+                        <input type="text" name="propertyTag" class="form-control" placeholder="Property Tag" ng-model="inventory.propertyTag" ng-minlength="4" required="" ng-keypress="filterValue($event)"> <small class="help-block" ng-show="hardwareform.propertyTag.$error.minlength && hardwareform.propertyTag.$touched">Please enter a valid property tag number.</small> </div>
+                    <div class="form-group" ng-class="{'has-error': hardwareform.description.$invalid && hardwareform.description.$touched}">
+                        <label for="description">Description</label>
+                        <input type="text" name="description" class="form-control" placeholder="Description" ng-model="inventory.description" ng-minlength="1" required=""> <small class="help-block" ng-show="hardwareform.description.$error.minlength && hardwareform.description.$touched">Please enter a valid description.</small> </div>
+                    <!-- <div class="form-group">
+                        <label for="specifications">Specification</label>
+                        <input type="text" name="specifications" class="form-control" placeholder="Specification"> </div>-->
+                    <div class="form-group" ng-class="{'has-error': hardwareform.specifications.$invalid && hardwareform.specifications.$touched}">
+                        <label for="specifications">Specification</label>
+                        <input type="text" name="specifications" class="form-control" placeholder="Specification" ng-model="inventory.specifications" ng-minlength="1" required=""> <small class="help-block" ng-show="hardwareform.specifications.$error.minlength && hardwareform.specifications.$touched">Please enter a valid specification.</small> </div>
+                    <div class="form-group" ng-class="{'has-error': hardwareform.purchasedDate.$invalid && hardwareform.purchasedDate.$touched}">
+                        <label for="purchasedDate">Purchased Date</label>
+                        <input type="text" name="purchasedDate" class="form-control" placeholder="Purchased Date" ng-model="inventory.purchasedDate" ng-minlength="1" required=""> <small class="help-block" ng-show="hardwareform.purchasedDate.$error.minlength && hardwareform.purchasedDate.$touched">Please enter a valid date.</small> </div>
+                    <div class="form-group" ng-class="{'has-error': hardwareform.amount.$invalid && hardwareform.amount.$touched}">
+                        <label for="amount">Amount</label>
+                        <input type="text" name="amount" class="form-control" placeholder="Amount" ng-model="inventory.amount" ng-minlength="1" required=""> <small class="help-block" ng-show="hardwareform.amount.$error.minlength && hardwareform.amount.$touched">Please enter a valid amount.</small> </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group" ng-class="{'has-error': hardwareform.vendor.$invalid && hardwareform.vendor.$touched}">
+                        <label for="vendor">Vendor</label>
+                        <input type="text" name="vendor" class="form-control" placeholder="Vendor" ng-model="inventory.vendor" ng-minlength="1" required=""> <small class="help-block" ng-show="hardwareform.vendor.$error.minlength && hardwareform.vendor.$touched">Please enter a valid vendor.</small> </div>
+                    <div class="form-group" ng-class="{'has-error': hardwareform.po.$invalid && hardwareform.po.$touched}">
+                        <label for="po">P/O # or Check #</label>
+                        <input type="text" name="po" class="form-control" placeholder="P/O #" ng-model="inventory.po" ng-minlength="1" required=""> <small class="help-block" ng-show="hardwareform.po.$error.minlength && hardwareform.po.$touched">Please enter a valid P/O Number.</small> </div>
+                    <div class="form-group" ng-class="{'has-error': hardwareform.serial.$invalid && hardwareform.serial.$touched}">
+                        <label for="serial">Serial #</label>
+                        <input type="text" name="serial" class="form-control" placeholder="Serial #" ng-model="inventory.serial" ng-minlength="1" required=""> <small class="help-block" ng-show="hardwareform.serial.$error.minlength && hardwareform.serial.$touched">Please enter a valid serial #.</small> </div>
+                    <div class="form-group" ng-class="{'has-error': hardwareform.location.$invalid && hardwareform.location.$touched}">
+                        <label for="location">Location</label>
+                        <input type="text" name="location" class="form-control" placeholder="Location" ng-model="inventory.location" ng-minlength="1" required=""> <small class="help-block" ng-show="hardwareform.location.$error.minlength && hardwareform.location.$touched">Please enter a valid location.</small> </div>
+                    <div class="form-group" ng-class="{'has-error': hardwareform.person.$invalid && hardwareform.person.$touched}">
+                        <label for="person">Person</label>
+                        <input type="text" name="person" class="form-control" placeholder="Person" ng-model="inventory.person" ng-minlength="1" required=""> <small class="help-block" ng-show="hardwareform.person.$error.minlength && hardwareform.person.$touched">Please enter a valid name.</small> </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary center-block" ng-disabled="hardwareform.$invalid">Add Inventory</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

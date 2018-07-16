@@ -1,0 +1,68 @@
+<!--<html>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#/welcome">Management App</a></li>
+            <li><a href="#/addPost">Software Management</a></li>
+            <li><a href="#/contractorAdmin">Hardware Management</a></li>
+            <li ng-click="logout()"><a href="#">Logout</a></li>
+        </ul>
+    </div>
+</nav>
+<div>
+    <div class="row">
+        <div class="col-md-8">
+            <li><a href="#/addHardwareInventory">Add Hardware</a></li>
+            <li><a href="#/showContractors">Show Hardware Details</a></li>
+            <li><a href="#/">Show Hardware Summary</a></li>
+            <li><a href="#/reports">Report</a></li>
+            <li><a href="#/adminSettings">Settings</a></li>
+        </div>
+    </div>
+</div>
+
+</html>-->
+<html>
+<div id="wrapper">
+    <ul class="sidebar-nav">
+        <li class="sidebar-brand"> <a href="#">
+                        Management App
+                    </a> </li>
+        <li> <a href="#">Dashboard</a> </li>
+        <li> <a href="#/contractorAdmin">Harwdware Inventory</a> </li>
+        <li> <a href="#/addPost">Software Inventory</a> </li>
+        <li> <a href="#">Settings</a> </li>
+        <li ng-click="logout()"> <a href="#">Logout</a> </li>
+    </ul>
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+                <ul class="nav navbar-nav">
+                    <li><a href="#/addHardwareInventory">Add Hardware Inventory</a></li>
+                    <li><a href="#/showContractors">Hardware Inventory Details</a></li>
+                    <li><a href="#/addPost">Hardware Inventory Summary</a></li>
+                    <li ng-click="logout()"><a href="#">Reports</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+</div>
+<!-- /#wrapper -->
+
+<body>
+    <h3>Welcome Home {{username}}!</h3>
+    <h4>Current Date {{date | date:'MM-dd-yyyy'}}</h4> </body>
+
+</html>
+<!--<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#/welcome">Management App</a></li>
+            <li><a href="#/addPost">Software Management</a></li>
+            <li><a href="#/contractorAdmin">Hardware Management</a></li>
+            <li ng-click="logout()"><a href="#">Logout</a></li>
+        </ul>
+    </div>
+</nav>-->

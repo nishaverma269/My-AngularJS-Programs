@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>AngularJS and Firebase App</title>
+</head>
+
+<body ng-controller="HomeCtrl">
+    <div> <img src="home/bgimage.jpg" alt="Contractor View" style="position:fixed;top:0px;left:0px;width:100%;height:100%;z-index:-1;">
+        <!--<div class="caption"><span class="border"><strong>WELCOME TO THE SITE ACCESS CHECKPOINT APPLICATION!</strong></span>
+            <br>
+            <br><span class="border"><strong>{{date | date:'fullDate'}}</strong></span>
+            <br> </div>--></div>
+    <div class="container">
+        <form role="form" name="loginForm" novalidate="">
+            <div class="form-group col-md-6 col-md-offset-3" ng-class="{'has-error': loginForm.email.$invalid && loginForm.email.$touched}">
+                <label for="email">Email Address</label>
+                <input type="email" name="email" ng-model="user.email" class="form-control" placeholder="Email Address" required="" /> <small class="help-block" ng-show="loginForm.email.$invalid && loginForm.email.$touched">Please enter an Email Address</small> </div>
+            <div class="form-group col-md-6 col-md-offset-3" ng-class="{'has-error': loginForm.password.$invalid && loginForm.password.$touched}">
+                <label for="password">Password</label>
+                <input type="password" name="password" ng-model="user.password" class="form-control" placeholder="Password" required="" ng-minlength=8 /> <small class="help-block" ng-show="loginForm.password.$error.minlength && loginForm.password.$touched">Password must be atleast 8 characters.</small> </div>
+            <div class="checkbox col-md-6 col-md-offset-3">
+                <label><a href="#/register">Sign Up</a></label>
+            </div>
+            <div class="col-md-6 col-md-offset-3">
+                <p ng-show="errMsg" style="color: red;">{{errorMessage}}</p>
+                <button type="submit" class="btn btn-lg btn-default btn-block" ng-disabled="loginForm.$invalid" ng-click="signIn()">Sign In</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

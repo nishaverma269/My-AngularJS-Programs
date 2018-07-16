@@ -1,0 +1,219 @@
+<html>
+
+<body ng-controller="showContractorsCtrl">
+    <!-- To show the navigation bar at the top -->
+    <div id="wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand"> <a href="#">
+                        Management App
+                    </a> </li>
+            <li> <a href="#">Dashboard</a> </li>
+            <li> <a href="#/contractorAdmin">Harwdware Inventory</a> </li>
+            <li> <a href="#/addPost">Software Inventory</a> </li>
+            <li> <a href="#">Settings</a> </li>
+            <li ng-click="logout()"> <a href="#">Logout</a> </li>
+        </ul>
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <nav class="navbar navbar-inverse navbar-fixed-top">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#/addHardwareInventory">Add Hardware Inventory</a></li>
+                        <li><a href="#/showContractors">Hardware Inventory Details</a></li>
+                        <li><a href="#/addPost">Hardware Inventory Summary</a></li>
+                        <li ng-click="logout()"><a href="#">Reports</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!--This div will show the current date and total contractors in the system.-->
+    <div class="container">
+        <div class="row row-offcanvas row-offcanvas-right">
+            <!-- <div class="col-xs-12 col-sm-8">-->
+            <div class="col-md-12">
+                <p align="center">{{currentDate | date:'medium'}}</p>
+                <h3 align="center">Total Hardware: {{hardwares.length}}</h3>
+                <br> </div>
+        </div>
+    </div>
+    <!-- This container will get the data and show all contractors using ng-repeat -->
+    <div class="container">
+        <div class="row row-offcanvas row-offcanvas-right style=" text-align:center; "">
+            <div class="col">
+                <div class="form-group has-feedback">
+                    <input class="center-block form-control" type="text" name="searchByCompany" ng-model="contractorData.search" placeholder="Search..." required="" /> <i class="glyphicon glyphicon-search form-control-feedback"> </i> </div>
+                <br>
+                <!--Sort Function-->
+                <!-- <button ng-click="propertyName = null; reverse = false">Set to unsorted</button>-->
+                <!--<button ng-click="">Print Reports</button>-->
+                <!--<div class="table-responsive">-->
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>
+                                <button ng-click="sortBy('propertyTag')" class="btn btn-sm btn-warning">Property Tag</button>
+                            </th>
+                            <th>
+                                <button ng-click="sortBy('description')" class="btn btn-sm btn-warning">Description</button>
+                            </th>
+                            <th>
+                                <button ng-click="sortBy('specifications')" class="btn btn-sm btn-warning">Specifications</button>
+                            </th>
+                            <th>
+                                <button ng-click="sortBy('purchasedDate')" class="btn btn-sm btn-warning">Purchased Date</button>
+                            </th>
+                            <th>
+                                <button ng-click="sortBy('amount')" class="btn btn-sm btn-warning">Amount</button>
+                            </th>
+                            <th>
+                                <button ng-click="sortBy('vendor')" class="btn btn-sm btn-warning">Vendor</button>
+                            </th>
+                            <th>
+                                <button ng-click="sortBy('po')" class="btn btn-sm btn-warning">P/O or Check#</button>
+                            </th>
+                            <th>
+                                <button ng-click="sortBy('serial')" class="btn btn-sm btn-warning">Serial#</button>
+                            </th>
+                            <th>
+                                <button ng-click="sortBy('location')" class="btn btn-sm btn-warning">Location</button>
+                            </th>
+                            <th>
+                                <button ng-click="sortBy('person')" class="btn btn-sm btn-warning">Person</button>
+                            </th>
+                            <th></th>
+                            <th>
+                                <div class="btn-group" dropdown>
+                                    <button type="button" class="btn btn-danger dropdown-toggle glyphicon glyphicon-option-vertical" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> <a class="dropdown-item" href="" ng-click="propertyName = null; reverse = false">Unsort Data</a>
+                                        <br><a class="dropdown-item" href="" ng-csv="getArray" csv-header="['Property Tag', 'Description', 'Specification', 'Purchased Date', 'Amount', 'Vendor','P/O', 'Serial #', 'Location', 'Person']" filename="Reports.csv">Print Reports</a> </div>
+                                </div>
+                            </th>
+                            <br> </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="hardware in hardwares | orderBy:propertyName:reverse | filter: contractorData.search">
+                            <!--<td>{{hardware.date}}</td>
+                            <th>{{hardware.member}}</th>-->
+                            <td>{{hardware.propertyTag}}</td>
+                            <td>{{hardware.description}}</td>
+                            <td>{{hardware.specifications}}</td>
+                            <td>{{hardware.purchasedDate}}</td>
+                            <td>{{hardware.amount}}</td>
+                            <td>{{hardware.vendor}}</td>
+                            <td>{{hardware.po}}</td>
+                            <td>{{hardware.serial}}</td>
+                            <td>{{hardware.location}}</td>
+                            <td>{{hardware.person}}</td>
+                            <!--  <td>
+                                <div ng-switch={{contractor.logStatus}}>
+                                    <div ng-switch-when=0>
+                                        <p>Not Logged In</p>
+                                    </div>
+                                    <div ng-switch-when=1>
+                                        <p>Logged In</p>
+                                    </div>
+                                    <div ng-switch-default>
+                                        <p>Status Unknown</p>
+                                    </div>
+                                </div>
+                            </td>-->
+                            <td> <a type="submit" ng-click="editContractor(hardware.$id)" data-target="#editModal" data-toggle="modal"><span class="glyphicon glyphicon-edit" ></span></a> </td>
+                            <td> <a type="submit" ng-click="deleteCnf(hardware)" data-target="#deleteModal" data-toggle="modal"><span class="glyphicon glyphicon-trash" ></span></a> </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!--</div>-->
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <!-- Container for updating the contractors information -->
+        <div class="container">
+            <div id="editModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4>Edit Hardware Details</h4> </div>
+                        <div class="modal-body">
+                            <form role="form">
+                                <div class="form-group">
+                                    <label for="registeredDate">Registered Date</label>
+                                    <input type="text" name="registeredDate" class="form-control" value={{editContractorData.date}} readonly> </div>
+                                <div class="form-group">
+                                    <label for="registeredBy">Registered By</label>
+                                    <input type="text" name="registeredBy" class="form-control" value={{editContractorData.member}} readonly> </div>
+                                <!-- <div class="form-group">
+                                        <label for="Safety Training">Safety Training Date</label>
+                                        <button type="text" name="date" ng-flat-datepicker datepicker-config="datepickerConfig" ng-model="date"> {{date | date:'MM/dd/yyyy'}}</button>
+                                    </div>-->
+                                <div class="form-group">
+                                    <label for="propertyTag">Property Tag</label>
+                                    <input type="text" name="propertyTag" class="form-control" ng-model="editContractorData.propertyTag"/> </div>
+                                <div class="form-group">
+                                    <label for="description">Description</label>
+                                    <input type="text" name="description" class="form-control" ng-model="editContractorData.description"/> </div>
+                                <div class="form-group">
+                                    <label for="specifications">Specification</label>
+                                    <input type="text" name="specifications" class="form-control" ng-model="editContractorData.specifications"/> </div>
+                                <div class="form-group">
+                                    <label for="purchasedDate">Purchased Date</label><br>
+                                    <!--<input type="text" name="purchasedDate" class="form-control" ng-model="editContractorData.purchasedDate" />-->
+                                    <!-- <button type="text" name="date" ng-flat-datepicker datepicker-config="datepickerConfig" ng-model="date"> {{date | date:'MM/dd/yyyy'}}</button>-->
+                                    <input type="text" name="purchasedDate" class="form-control" ng-model="date" datepicker-config="datepickerConfig" ng-flat-datepicker/> </div>
+                                <div class=" form-group">
+                                    <label for="amount">Amount</label>
+                                    <input type="text" name="amount" class="form-control" ng-model="editContractorData.amount"/> </div>
+                                <div class="form-group">
+                                    <label for="vendor">Vendor</label>
+                                    <input type="text" name="vendor" class="form-control" ng-model="editContractorData.vendor"/> </div>
+                                <div class="form-group">
+                                    <label for="po">PO</label>
+                                    <input type="text" name="po" class="form-control" ng-model="editContractorData.po"/> </div>
+                                <div class="form-group">
+                                    <label for="serial">Serial</label>
+                                    <input type="text" name="serial" class="form-control" ng-model="editContractorData.serial"/> </div>
+                                <div class="form-group">
+                                    <label for="location">Location</label>
+                                    <input type="text" name="location" class="form-control" ng-model="editContractorData.location"/> </div>
+                                <div class="form-group">
+                                    <label for="person">Person</label>
+                                    <input type="text" name="person" class="form-control" ng-model="editContractorData.person"/> </div>
+                                <!-- <div class="form-group ">
+                                        <label for="company ">Company</label>
+                                        <select class="form-control " ng-model="contractor.company ">
+                                            <option disabled selected>Choose your option</option>
+                                            <option ng-repeat="company in companies ">{{company.company}}</option>
+                                        </select>
+                                    </div>-->
+                            </form>
+                        </div>
+                        <div class="modal-footer ">
+                            <button type="button" class="btn btn-sm btn-primary" ng-click="updateContractor(editContractorData.$id)">Update Contractor</button>
+                            <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Contatiner for deleting the contractors -->
+    <div class="container">
+        <div id="deleteModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header"></div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to delete this information?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-danger" ng-click="finalizeDelete(deleteHardware)">Delete</button>
+                        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
